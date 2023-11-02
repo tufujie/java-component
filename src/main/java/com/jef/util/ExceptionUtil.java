@@ -62,4 +62,23 @@ public class ExceptionUtil {
         return sb.toString();
     }
 
+    /**
+     * 获取异常信息
+     * @author Jef
+     * @date 2021/4/15
+     * @param m
+     * @param e
+     * @param sb
+     * @return java.lang.String
+     */
+    public static String getExceptionStackTraceMessage(StackTraceElement[] m, Throwable e, StringBuffer sb) {
+        for (StackTraceElement ste : m) {
+            sb.append(ste.toString());
+            sb.append("\n");
+        }
+        sb.append("\n");
+        sb.append(e.getCause());
+        return sb.toString();
+    }
+
 }
