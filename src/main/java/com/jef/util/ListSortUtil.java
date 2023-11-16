@@ -21,16 +21,20 @@ import java.util.TreeSet;
  * @date 2018/10/8 14:09
  */
 public class ListSortUtil<E> {
+    private static final String GETTER_PREFIX = "get";
+    private static final String DESC = "desc";
+
     @SuppressWarnings("all")
-    public void sort(List<E> list, final String method, final String sort) {
+    public void sort(List<E> list, final String fieldName, final String sort) {
         Collections.sort(list, new Comparator() {
             @Override
             public int compare(Object a, Object b) {
                 int ret = 0;
                 try {
+                    String method = GETTER_PREFIX + StringUtils.capitalize(fieldName);
                     Method m1 = ((E) a).getClass().getMethod(method, null);
                     Method m2 = ((E) b).getClass().getMethod(method, null);
-                    if (sort != null && "desc".equals(sort)) {
+                    if (sort != null && DESC.equals(sort)) {
                         // 倒序
                         ret = m2.invoke(((E) b), null).toString().compareTo(m1.invoke(((E) a), null).toString());
                     } else {
