@@ -10,6 +10,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 /**
@@ -47,6 +48,11 @@ public class DateTimeUtil extends DateUtils {
     public static final String DAY_FORMAT = "dd";
     public static final String DATE_FORMAT_SSS = "yyyy-MM-dd HH:mm:ss.SSS"; // 精确到毫秒
     public static final String DATETIME_FORMAT3 = "yyyyMMddHHmmss";
+
+    public static DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+    public static org.joda.time.format.DateTimeFormatter FORMATTER_2 = org.joda.time.format.DateTimeFormat.forPattern(
+            "yyyy-MM-dd");
 
     // 偏移方向
     public static final int TO_BEFORE = 0; // 偏移方向，向前
@@ -563,6 +569,8 @@ public class DateTimeUtil extends DateUtils {
     }
 
     public static Map<String, String> zoneCn = new HashMap() {
+        private static final long serialVersionUID = -428432887946061683L;
+
         {
             put("Asia/Shanghai", "中");
             put("America/Los_Angeles", "美");
@@ -766,14 +774,18 @@ public class DateTimeUtil extends DateUtils {
      * @return 转化后的日期时间.
      */
     public static String string2Timezone(String srcFormater, String srcDateTime, String dstFormater, String dstTimeZoneId) {
-        if (srcFormater == null || "".equals(srcFormater))
+        if (srcFormater == null || "".equals(srcFormater)) {
             return null;
-        if (srcDateTime == null || "".equals(srcDateTime))
+        }
+        if (srcDateTime == null || "".equals(srcDateTime)) {
             return null;
-        if (dstFormater == null || "".equals(dstFormater))
+        }
+        if (dstFormater == null || "".equals(dstFormater)) {
             return null;
-        if (dstTimeZoneId == null || "".equals(dstTimeZoneId))
+        }
+        if (dstTimeZoneId == null || "".equals(dstTimeZoneId)) {
             return null;
+        }
         SimpleDateFormat sdf = new SimpleDateFormat(srcFormater);
         try {
             int diffTime = getDiffTimeZoneRawOffset(dstTimeZoneId);
