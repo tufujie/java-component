@@ -46,7 +46,7 @@ public class DateTimeUtilTest {
                         // 方式4，ThreadLocal
                         DateFormat dateFormat = THREAD_LOCAL.get();
                         if (dateFormat == null) {
-                            dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                            dateFormat = new SimpleDateFormat(DateTimeUtil.NORMAL_DATE_FORMAT);
                             THREAD_LOCAL.set(dateFormat);
                         }
                         dateFormat.parse(text);
